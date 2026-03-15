@@ -140,23 +140,19 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
               </IconButton>
             )}
           </Typography>
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" alignItems="center">
             {embedded && (
-              <IconButton color="error" onClick={() => setConfirmDeleteOpen(true)}>
-                <DeleteIcon />
-              </IconButton>
-            )}
-            {embedded && ( 
-              <IconButton color="primary" onClick={handleEditClick}>
-                <EditIcon />
-              </IconButton>
-            )}
-            {embedded && (  
-              <IconButton onClick={
-              () => {onClose?.()}
-              }>
-                <CancelIcon />
-              </IconButton>
+              <>
+                <IconButton color="primary" onClick={handleEditClick}>
+                  <EditIcon />
+                </IconButton>
+
+                <Box sx={{ ml: 2 }}>
+                  <IconButton onClick={() => { onClose?.(); }}>
+                    <CancelIcon />
+                  </IconButton>
+                </Box>
+              </>
             )}
           </Stack>
 
@@ -229,7 +225,33 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
             <Typography variant="body2" sx={{ color: '#aaa' }}>{t('viewPro.editorLoading')}</Typography>
           )}
         </Box>
+        
+        {/* ---------- 嵌入式底部按钮区 ---------- */}
+        {embedded && (
+          <Box
+            sx={{
+              mt: 3,
+              pt: 1,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <Box>
+              <Button
+                variant="text"
+                color="error"
+                onClick={() => setConfirmDeleteOpen(true)}
+              >
+                {t('viewPro.delete')}
+              </Button>
+            </Box>
 
+            <Box />
+          </Box>
+        )}
+        {/* ---------- 独立页面底部按钮区 ---------- */}
         {!embedded && (
           <Stack direction="row" spacing={2} mt="auto" pt={1} justifyContent="center">
             <Button 

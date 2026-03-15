@@ -246,22 +246,10 @@ export default function CreateOrEditTask({ _id: propId, task: propTask, embedded
           </Typography>
           <Stack direction="row" spacing={1}>
             {embedded && (
-            <>
-              {isEdit && (
-                <IconButton color="error" onClick={() => setConfirmDeleteOpen(true)}>
-                  <DeleteIcon />
-                </IconButton>
-              )}
-              <IconButton color="primary" onClick={handleSubmit} disabled={saving}>
-                <SaveIcon />
-              </IconButton>
-              <IconButton 
-                onClick={handleCancel}
-              >
+              <IconButton onClick={handleCancel}>
                 <CancelIcon />
               </IconButton>
-            </>
-          )}
+            )}
           </Stack>
         </Box>
         <Divider sx={{ mb: 2 }} />
@@ -450,8 +438,45 @@ export default function CreateOrEditTask({ _id: propId, task: propTask, embedded
             )}
           </Grid>
         </Grid>
+      
+      {/* ---------- 嵌入式按钮区 ---------- */}
+      {embedded && (
+        <Box
+          sx={{
+            mt: 3,
+            pt: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          {/* 左下：仅编辑模式显示删除 */}
+          <Box>
+            {isEdit && (
+              <Button
+                variant="text"
+                color="error"
+                onClick={() => setConfirmDeleteOpen(true)}
+              >
+                {t('EditPro.delete')}
+              </Button>
+            )}
+          </Box>
 
-      {/* ---------- 按钮区 ---------- */}
+          {/* 右下：新建/编辑都显示保存 */}
+          <Box>
+            <Button
+              variant="contained"
+              disabled={saving}
+              onClick={handleSubmit}
+            >
+              {isEdit ? t('EditPro.save') : t('EditPro.create')}
+            </Button>
+          </Box>
+        </Box>
+      )}
+      {/* ---------- 独立页面按钮区 ---------- */}
       {!embedded && (
         <Stack direction="row" spacing={2} mt="auto" pt={1} justifyContent="center">
           <Button
