@@ -14,7 +14,7 @@ function formatDate(val) {
 }
 
 const TaskList = React.forwardRef(function TaskList(
-  { tasks, onSelectTask, sx = {}, loading, hasMore, onLoadMore, selectedTaskId },
+  { tasks, onSelectTask, sx = {}, loading, hasMore, onLoadMore },
   ref
 ) {
   const { t } = useTranslation();
@@ -159,12 +159,7 @@ const TaskList = React.forwardRef(function TaskList(
             <tr
               key={t._id || idx}
               style={{
-                background:
-                  selectedTaskId === t._id
-                    ? '#cfe3ff'
-                    : idx % 2 === 1
-                    ? '#fafbfc'
-                    : '#fff',
+                background: idx % 2 === 1 ? '#fafbfc' : '#fff',
                 transition: 'background 0.18s',
                 cursor: 'pointer',
               }}
@@ -180,7 +175,7 @@ const TaskList = React.forwardRef(function TaskList(
           {loading && (
             <tr>
               <td colSpan={dynamicCols.length} style={{ textAlign: 'center', color: '#999', padding: 10 }}>
-                <span>loading…</span>
+                <span>加载中…</span>
               </td>
             </tr>
           )}
@@ -195,7 +190,7 @@ const TaskList = React.forwardRef(function TaskList(
           padding: 8,
           background: '#fff'
         }}>
-          Already the end
+          已经到底了
         </div>
       )}
     </div>

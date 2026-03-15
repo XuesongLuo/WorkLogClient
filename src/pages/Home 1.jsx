@@ -1,13 +1,13 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Typography, Box, Button, Stack, Grid, Container} from '@mui/material';
+import { Typography, Box, Button, Stack, Grid, Container, Slide} from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import TopAppBar from '../components/TopAppBar';
-import TaskList from '../components/TaskList'; 
+import TaskList from '../components/TaskList 1'; 
 import CalendarView from '../components/CalendarView';
-import TaskDetail from '../components/TaskDetail';
+import TaskDetail from '../components/TaskDetail 1';
 import CreateOrEditTask from '../components/CreateOrEditTask';
 import useTaskDetailState from '../hooks/useTaskDetailState';
 import { useTasks } from '../contexts/TaskStore';
@@ -56,6 +56,7 @@ export default function Home() {
   const events = useNormalizedEvents(tasks);
   const [viewMode, setViewMode] = useState('list'); // 'calendar' | 'list'
   const navigate = useNavigate();
+  const [showPanelContent, setShowPanelContent] = useState(false);
   const containerOuterRef = useRef(null);
   const location = useLocation();
 
@@ -66,6 +67,7 @@ export default function Home() {
     openTaskEdit,
     openTaskCreate,
     handleTaskClose,
+    setSelectedTask
   } = useTaskDetailState(() => api.loadPage(page));
 
   // 使用 useMemo 优化计算
@@ -104,31 +106,27 @@ export default function Home() {
 
   // 新的关闭&刷新逻辑
   const handlePanelClose = (payload) => {
-    // 1. 切到编辑模式
+    // 1. 如果是编辑payload，切换到编辑模式
     if (payload && typeof payload === 'object' && payload.mode === 'edit') {
       openTaskEdit(payload._id, payload.task);
       return;
     }
-    // 2. 如果传的是函数，先执行函数，再关闭
+    // 关闭面板
+    handleTaskClose();
+    // 如果是删除等传递过来的函数
     if (typeof payload === 'function') {
       payload();
-      handleTaskClose();
       return;
     }
-    // 3. 如果需要刷新，先刷新，再关闭
+    // 如果 payload === 'reload-first'， 从第一页开始刷新
     if (payload === 'reload-first') {
       api.loadPage(1);
       setPage(1);
-      handleTaskClose();
-      return;
     }
+    // 如果 payload === 'reload-current'， 从当前页开始刷新
     if (payload === 'reload-current') {
       api.loadPage(page);
-      handleTaskClose();
-      return;
     }
-    // 4. 默认关闭
-    handleTaskClose();
   };
 
   // 从后端加载任务列表
@@ -206,7 +204,6 @@ export default function Home() {
               <TaskList
                 tasks={tasks}
                 onSelectTask={(task) => openTaskDetail(task._id)}
-                selectedTaskId={selectedTask?._id}
                 sx={{ height: '100%' }} 
                 loading={loading}           
                 hasMore={hasMore}           
@@ -227,25 +224,27 @@ export default function Home() {
           </Grid>
           {/* 右侧面板：详情 / 新建 / 编辑 */}
           <Grid sx={rightPanelStyles}>
-            <Box
-              sx={{
-                height: '100%',
-                width: '100%',
-                transform: selectedTask ? 'translateX(0)' : 'translateX(20px)',
-                opacity: selectedTask ? 1 : 0,
-                transition: 'transform 220ms ease, opacity 220ms ease',
-                pointerEvents: selectedTask ? 'auto' : 'none',
-                overflow: 'hidden',
+            <Slide 
+              direction="left" 
+              in={!!selectedTask} 
+              mountOnEnter 
+              unmountOnExit
+              onEntered={() => {
+                setShowPanelContent(true);     // 动画后加载内容
+              }}
+              onExit={() => setShowPanelContent(false)} // 动画开始卸载内容
+              onExited={() => {                         // 动画完全收起 → 执行回调
+                setSelectedTask(null);
               }}
             >
-              {selectedTask && (
-                <SlideContent
-                  selectedTask={selectedTask}
-                  handleTaskClose={handlePanelClose}
-                />
-              )}
-            </Box>
-          </Grid>
+              <div style={{ height: '100%' }}>
+                  <SlideContent
+                    selectedTask={selectedTask}
+                    handleTaskClose={handlePanelClose}
+                  />
+              </div>
+              </Slide>
+            </Grid>
         </Grid>
       </Container>
     </Box>

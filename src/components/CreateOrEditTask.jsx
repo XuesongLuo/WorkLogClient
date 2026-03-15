@@ -18,13 +18,11 @@ import {
   DialogTitle,
   DialogActions
 } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { DatePicker }      from '@mui/x-date-pickers';
-import { AdapterDateFns }      from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useSnackbar } from 'notistack';
 import { useLoading } from '../contexts/LoadingContext';
 import { useTasks } from '../contexts/TaskStore';

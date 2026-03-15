@@ -1,5 +1,5 @@
 // src/components/TaskDetail.jsx
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import {
   Box,
@@ -14,6 +14,7 @@ import {
   DialogActions,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSnackbar } from 'notistack';
@@ -27,89 +28,45 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
   const navigate = useNavigate();
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [task, setTask] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [loadingDesc, setLoadingDesc] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [editorReady, setEditorReady] = useState(false);
-  const requestIdRef = useRef(0);
   const { taskMap, api: taskApi } = useTasks();
   const { enqueueSnackbar } = useSnackbar();
   const location = useLocation();
   const routeTask = location.state?.task;
+
 
   const { _id: routeId } = useParams();
   // 最终 ID：优先使用 props 传入，其次是路由参数
   const _id = propId ?? routeTask?._id ?? routeId;
 
   useEffect(() => {
-    if (!_id) return;
-  
-    const currentRequestId = ++requestIdRef.current;
-    let cancelled = false;
-  
-    const safeSetState = (fn) => {
-      if (cancelled) return;
-      if (requestIdRef.current !== currentRequestId) return;
-      fn();
-    };
-  
+    // 先看缓存（taskMap），再决定是否要远程加载
     const cachedTask = taskMap[_id];
-  
-    // 1. 有缓存：立刻更新基础信息，不清空旧界面
     if (cachedTask) {
-      safeSetState(() => {
-        setTask(prev => ({
-          ...(prev || {}),
-          ...cachedTask,
-        }));
-        setLoading(false);
+      setTask({ ...cachedTask });
+      setLoading(false);
+      setTimeout(() => setEditorReady(true), 150);
+      taskApi.getTaskDescription(_id).then(descData => {
+        setTask(prev => ({ ...prev, description: descData.description }));
       });
     } else {
-      // 2. 没缓存：如果当前完全没有内容，再显示骨架；不要直接 return null
-      safeSetState(() => {
-        setLoading(true);
+      setLoading(true);
+      Promise.all([
+        taskApi.getTask(_id),
+        taskApi.getTaskDescription(_id),
+      ])
+      .then(([taskData, descData]) => {
+        setTask({ ...taskData, description: descData.description });
+        setLoading(false);
+        setTimeout(() => setEditorReady(true), 150);
+      })
+      .catch(err => {
+        console.error('获取任务失败', err);
+        setLoading(false);
+        if (embedded && onClose) onClose();
       });
     }
-  
-    // 每次切项目时先重置编辑器准备态
-    safeSetState(() => {
-      setEditorReady(false);
-      setLoadingDesc(true);
-    });
-  
-    // 3. 请求主数据
-    const taskPromise = cachedTask ? Promise.resolve(cachedTask) : taskApi.getTask(_id);
-  
-    // 4. 请求完整详情 + 描述
-    Promise.all([
-      taskPromise,
-      taskApi.getTaskDescription(_id),
-    ])
-      .then(([taskData, descData]) => {
-        safeSetState(() => {
-          setTask({
-            ...taskData,
-            description: descData?.description || '',
-          });
-          setLoading(false);
-          setLoadingDesc(false);
-          setTimeout(() => {
-            if (!cancelled && requestIdRef.current === currentRequestId) {
-              setEditorReady(true);
-            }
-          }, 80);
-        });
-      })
-      .catch((err) => {
-        console.error('获取任务失败', err);
-        safeSetState(() => {
-          setLoading(false);
-          setLoadingDesc(false);
-        });
-      });
-  
-    return () => {
-      cancelled = true;
-    };
   }, [_id, taskMap, taskApi]);
 
   const handleEditClick = () => {
@@ -151,19 +108,9 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
     return `${desc.length}-${desc.slice(0, 16)}-${desc.slice(-16)}`;
   }
 
-  if (loading && !task) {
-    return (
-      <TaskPane embedded={embedded}>
-        <Box sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {t('viewPro.proDetail')}
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#888' }}>
-            {t('viewPro.loading')}
-          </Typography>
-        </Box>
-      </TaskPane>
-    );
+
+  if (loading) {
+    return embedded ? null : <Typography sx={{ mt: 4, textAlign: 'center' }}>{t('viewPro.loading')}</Typography>;
   }
   if (!task) {
     return embedded ? null : <Typography sx={{ mt: 4, textAlign: 'center' }}>{t('viewPro.unknown')}</Typography>;
@@ -265,9 +212,8 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
         <Typography gutterBottom>
         <strong>{t('viewPro.editorTitle')}</strong>
         </Typography>
-
         <Box sx={{ mt: 2 }}>
-          {editorReady && task && typeof task.description === 'string' ? (
+          {(task && typeof task.description === 'string' && editorReady) ? (
             <Editor 
               key={_id + '-' + hashDesc(task.description)} 
               value={task.description} 
@@ -276,9 +222,7 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
               maxHeightOffset={embedded ? 40 : 100}
             />
           ) : (
-            <Typography variant="body2" sx={{ color: '#aaa' }}>
-              {loadingDesc ? t('viewPro.editorLoading') : t('viewPro.loading')}
-            </Typography>
+            <Typography variant="body2" sx={{ color: '#aaa' }}>{t('viewPro.editorLoading')}</Typography>
           )}
         </Box>
         
