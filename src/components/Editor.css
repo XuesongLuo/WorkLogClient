@@ -1,0 +1,360 @@
+/* 编辑器外层容器 */
+.editor-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  padding: 2px;
+}
+
+.editor-resizable {
+  resize: vertical;        
+  overflow: auto;          
+  min-height: 180px;       
+  min-width: 200px;        
+  width: 100%;             
+  box-sizing: border-box;
+  background: #fff;        
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.2s;
+  display: flex;          
+  flex-direction: column; 
+}
+
+.editor-resizable:focus-within {
+  box-shadow: 0 0 0 2px #90caf9;
+}
+  
+/* 工具栏 */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;       
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0px;
+  padding: 3px 0px;
+  border-radius: 4px;
+  width: 100%; 
+  background: #f5f5f5; 
+}
+  
+/* 工具栏按钮 */
+.toolbar button, .toolbar select {
+  padding: 4px 8px;
+  font-size: 14px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+  
+.toolbar button:hover, .toolbar select:hover {
+  background: #e0e0e0;
+}
+
+.toolbar button.is-active {
+  background: #0078d4;
+  color: white;
+  border-color: #0078d4;
+}
+
+/* 颜色选择 */
+.dropdown {
+  position: relative;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 每行 8 个 */
+  gap: 4px;
+  margin-top: 4px;
+}
+  
+/* 让颜色选择浮动 */
+.floating {
+  position: fixed;
+  top: auto;        /* 清除原始 top 定位 */
+  left: auto; 
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  min-width: 165px;
+}
+  
+.color-button {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+}
+  
+.color-button:hover {
+  border-color: #0078d4;
+}
+
+.color-button.is-active {
+  border: 2px solid #0078d4;
+  box-shadow: 0 0 0 2px white;
+}
+
+.color-preview {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* 有序和无序列表样式  */
+.split-button {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+  
+.split-button button {
+  background: #f5f5f5;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  width: 30px;
+}
+
+.split-button button:hover {
+  background: #e6e6e6;
+}
+  
+.split-button .split-toggle {
+  width: 15px;
+  padding: 4px 0;
+  border-left:1px solid #bbbaba;
+  color: #5f5f5f;
+}
+
+  
+.list-style-palette {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  gap: 4px;
+}
+  
+.list-style-palette button {
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 4px 8px;
+  width: 100%;
+}
+  
+.list-style-palette button:hover {
+  background-color: #e6f7ff;
+}
+
+/* 编辑器内容 */
+.ProseMirror {
+  outline: none;
+  flex: 1 1 0%;
+  min-height: 20vh;     /* 最小高度，根据屏幕高度变化 */
+  max-height: 100%;     /* 最大不超过一半视口高度 */
+  overflow-y: auto;
+  padding: 12px 4px;
+  background: white; /* 文本区背景改为白色 */
+  border-radius: 4px;
+}
+
+.ProseMirror em {
+  font-style: italic;
+  font-family: "Times New Roman", Georgia, Arial, sans-serif;
+}
+
+/* 基础段落样式 */
+.ProseMirror p {
+  margin: 0 0 0 8px;
+}
+
+
+/* 修复 taskList 换行问题 */
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 1.5em; 
+  margin: 16px 0;
+}
+
+.ProseMirror li.task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding-left: 0;
+}
+
+.ProseMirror li.task-item > label {
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 20px;
+}
+
+.ProseMirror li.task-item > .content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ProseMirror li.task-item > .content p {
+  margin: 0; /* 关键！防止换行 */
+}
+
+.checkbox-wrapper {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* 表格 */
+.table-selector {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 200;
+}
+  
+.table-selector-row {
+  display: flex;
+  gap: 2px;
+}
+
+.table-selector-cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.table-selector-cell.selected {
+  background: #0078d4;
+  border-color: #0078d4;
+}
+
+.table-size-info {
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
+  color: #555;
+}
+
+/* 表格基础样式 */
+.ProseMirror table {
+  table-layout: fixed; /* 固定表格布局 */
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+  
+.ProseMirror th, .ProseMirror td {
+  border: 1px solid #666;
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden; /* 超出隐藏 */
+}
+
+/* 表头样式 */
+.ProseMirror th {
+  background-color:white;;
+  font-weight: bold;
+}
+
+/* 表格单元格选中高亮 */
+.ProseMirror .selectedCell {
+  background: #e6f7ff;
+  outline: 2px solid #1890ff;
+}
+  
+/* 表格列宽拖动控制 */
+.ProseMirror .tableWrapper {
+  position: relative;
+}
+
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 10;
+}
+.ProseMirror .column-resize-handle:hover {
+  background: #313131; /* 拖动列宽时，列边线变成蓝色 */
+  opacity: 0.8;
+}
+
+/* 鼠标移到单元格右边缘时，模拟列边高亮 */
+.ProseMirror td:hover, 
+.ProseMirror th:hover {
+  position: relative;
+}
+.ProseMirror td:hover::after,
+.ProseMirror th:hover::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px; /* 模拟列边宽度 */
+  height: 100%;
+  opacity: 0.6;
+  cursor: col-resize;
+}
+
+
+
+/* 右键菜单 */
+.context-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.context-menu button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 4px 8px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.context-menu button:hover {
+  background: #e6f7ff;
+}

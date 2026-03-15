@@ -1,0 +1,110 @@
+{
+  "Home": {
+    "listView": "Project List",
+    "calendarView": "Project Calendar",
+    "calendarTitle": "Project Calendar",
+    "listTitle": "Project List",
+    "createProject": "Create Project",
+    "progressTableEditor": "Progress Table Editor"
+  },
+  "TopAppBar": {
+    "settings": "Settings",
+    "BackButton": "Back",
+    "logOut": "Logout"
+  },
+  "ProList": {
+    "startDate": "Start Date",
+    "address": "Address",
+    "year": "House Year",
+    "insurance": "Insurance Company",
+    "type": "Project Type"
+  },
+  "calendar": {
+    "today": "Today",
+    "previous": "Previous",
+    "next": "Next",
+    "month": "Month",
+    "week": "Week",
+    "day": "Day",
+    "agenda": "Agenda",
+    "date": "Date",
+    "time": "Time",
+    "event": "Event",
+    "allDay": "All Day",
+    "noEventsInRange": "No events in this range"
+  },
+  "EditPro": {
+    "saveSuccess": "Save successful",
+    "saveFailed": "Save failed",
+    "alreadyDel": "Already deleted",
+    "delFailed&Rec": "Deletion failed and recovered",
+    "createProject": "Create Project",
+    "editProject": "Edit Project",
+    "submitWarn": "Address, city, state, and zip code are required fields. Please fill them in completely!",
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "zip": "Zip Code",
+    "year": "House Year",
+    "insurance": "Insurance Company",
+    "type": "Project Type",
+    "manager": "Project Manager",
+    "referrer": "Project Referrer",
+    "company": "Company",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "editorTitle": "Project Details",
+    "editorLoading": "Loading editor...",
+    "waitingLoading": "Waiting for editor to load...",
+    "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
+    "deleteCheck": "Are you sure you want to delete this task?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "viewPro": {
+    "alreadyDel": "Deleted",
+    "delFailed&Rec": "Deletion failed and recovered",
+    "loading": "Loading...",
+    "unknown": "Project not found",
+    "proDetail": "Project Details",
+    "location": "Location: ",
+    "year": "House Year: ",
+    "insurance": "Insurance Company: ",
+    "type": "Project Type: ",
+    "manager": "Project Manager: ",
+    "referrer": "Project Referrer: ",
+    "company": "Project Company: ",
+    "startDate": "Start Date: ",
+    "endDate": "End Date: ",
+    "notFilled": "Not filled in",
+    "editorTitle": "Project Details",
+    "editorLoading": "Loading details...",
+    "editorLoadfailed": "Loading failed",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteCheck": "Are you sure you want to delete this task?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ProProgress": {
+    "saveSuccess": "Save successful",
+    "saveFailed": "Save failed"
+  },
+  "Settings": {
+    "Title": "Settings",
+    "Language": "Language",
+    "Types": "Type Management",
+    "AddType": "Add Type",
+    "Close": "Close"
+  },
+  "Login": {
+    "userLogin": "User Login",
+    "username": "Username",
+    "password": "Password",
+    "pwVisToggle": "Toggle password visibility",
+    "loading": "Logging in...",
+    "login": "Login"
+  }
+}

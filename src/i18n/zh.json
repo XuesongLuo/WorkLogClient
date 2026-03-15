@@ -1,0 +1,110 @@
+{
+  "Home": {
+    "listView": "项目列表",
+    "calendarView": "项目日历",
+    "calendarTitle": "项目 日历",
+    "listTitle": "项目  列表",
+    "createProject": "新建项目",
+    "progressTableEditor": "项目进度表"
+  },
+  "TopAppBar": {
+    "settings": "设置",
+    "BackButton": "返回",
+    "logOut": "登出"
+  },
+  "ProList" : {
+    "startDate": "开始日期",
+    "address": "地址",
+    "year": "房屋年份",
+    "insurance": "保险公司",
+    "type": "项目类型"
+  },
+  "calendar": {
+    "today": "今天",
+    "previous": "上一个",
+    "next": "下一个",
+    "month": "月",
+    "week": "周",
+    "day": "日",
+    "agenda": "议程",
+    "date": "日期",
+    "time": "时间",
+    "event": "事件",
+    "allDay": "全天",
+    "noEventsInRange": "此范围内没有事件"
+  },
+  "EditPro": {
+    "saveSuccess": "保存成功",
+    "saveFailed": "保存失败",
+    "alreadyDel": "已删除",
+    "delFailed&Rec": "删除失败并恢复",
+    "createProject": "创建项目",
+    "editProject": "编辑项目",
+    "submitWarn": "地址、城市、州和邮编为必填项，请填写完整！",
+    "address": "地址",
+    "city":  "城市",
+    "state": "州",
+    "zip": "邮编",
+    "year": "房屋年份",
+    "insurance": "保险公司",
+    "type": "项目类型",
+    "manager": "项目负责人",
+    "referrer": "项目推荐人",
+    "company": "项目公司",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "editorTitle": "项目详细",
+    "editorLoading": "加载编辑器中...",
+    "waitingLoading": "等待编辑器加载...",
+    "save": "保存",
+    "create": "创建",
+    "delete": "删除",
+    "deleteCheck": "确定要删除该任务吗？",
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "viewPro": {
+    "alreadyDel": "已删除",
+    "delFailed&Rec": "删除失败并恢复",
+    "loading": "加载中...",
+    "unknown": "项目未找到",
+    "proDetail": "项目详细内容",
+    "location": "地址：",
+    "year": "房屋年份：",
+    "insurance": "保险公司：",
+    "type": "项目类型：",
+    "manager": "项目负责人：",
+    "referrer": "项目推荐人：",
+    "company": "项目公司：",
+    "startDate": "开始日期：",
+    "endDate": "结束日期：",
+    "notFilled": "未填写",
+    "editorTitle": "项目详细",
+    "editorLoading": "加载详细内容中...",
+    "editorLoadfailed": "加载失败",
+    "edit": "编辑",  
+    "delete": "删除",
+    "deleteCheck": "确定要删除该任务吗？",
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "ProProgress": {
+    "saveSuccess": "保存成功",
+    "saveFailed": "保存失败"
+  },
+  "Settings": {
+    "Title": "设置",
+    "Language": "语言设置",
+    "Types": "类型管理",
+    "AddType": "新增类型",
+    "Close": "关闭"
+  },
+  "Login": {
+    "userLogin": "用户登录",
+    "username": "用户名",
+    "password":  "密码",
+    "pwVisToggle": "切换密码可见性",
+    "loading": "登陆中...",
+    "login": "登 录"
+  }
+}

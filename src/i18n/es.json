@@ -1,0 +1,110 @@
+{
+  "Home": {
+    "listView": "Lista de Proyectos",
+    "calendarView": "Calendario de Proyectos",
+    "calendarTitle": "Calendario de Proyectos",
+    "listTitle": "Lista de Proyectos",
+    "createProject": "Crear Proyecto",
+    "progressTableEditor": "Editor de Tabla de Progreso"
+  },
+  "TopAppBar": {
+    "settings": "Configuración",
+    "BackButton": "Atrás",
+    "logOut": "Cerrar sesión"
+  },
+  "ProList": {
+    "startDate": "Fecha de Inicio",
+    "address": "Dirección",
+    "year": "Año de la Casa",
+    "insurance": "Compañía de Seguros",
+    "type": "Tipo de Proyecto"
+  },
+  "calendar": {
+    "today": "Hoy",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "month": "Mes",
+    "week": "Semana",
+    "day": "Día",
+    "agenda": "Agenda",
+    "date": "Fecha",
+    "time": "Hora",
+    "event": "Evento",
+    "allDay": "Todo el día",
+    "noEventsInRange": "No hay eventos en este rango"
+  },
+  "EditPro": {
+    "saveSuccess": "Guardado con éxito",
+    "saveFailed": "Error al guardar",
+    "alreadyDel": "Eliminado",
+    "delFailed&Rec": "Eliminación fallida y recuperada",
+    "createProject": "Crear Proyecto",
+    "editProject": "Editar Proyecto",
+    "submitWarn": "Dirección, ciudad, estado y código postal son campos obligatorios. ¡Por favor, complételos!",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "zip": "Código Postal",
+    "year": "Año de la Casa",
+    "insurance": "Compañía de Seguros",
+    "type": "Tipo de Proyecto",
+    "manager": "Responsable del Proyecto",
+    "referrer": "Recomendado por",
+    "company": "Empresa",
+    "startDate": "Fecha de Inicio",
+    "endDate": "Fecha de Finalización",
+    "editorTitle": "Detalles del Proyecto",
+    "editorLoading": "Cargando el editor...",
+    "waitingLoading": "Esperando que se cargue el editor...",
+    "save": "Guardar",
+    "create": "Crear",
+    "delete": "Eliminar",
+    "deleteCheck": "¿Está seguro de que desea eliminar esta tarea?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "viewPro": {
+    "alreadyDel": "Eliminado",
+    "delFailed&Rec": "Eliminación fallida y recuperada",
+    "loading": "Cargando...",
+    "unknown": "Proyecto no encontrado",
+    "proDetail": "Detalles del Proyecto",
+    "location": "Ubicación: ",
+    "year": "Año de la Casa: ",
+    "insurance": "Compañía de Seguros: ",
+    "type": "Tipo de Proyecto: ",
+    "manager": "Responsable del Proyecto: ",
+    "referrer": "Recomendado por: ",
+    "company": "Empresa: ",
+    "startDate": "Fecha de Inicio: ",
+    "endDate": "Fecha de Finalización: ",
+    "notFilled": "No completado",
+    "editorTitle": "Detalles del Proyecto",
+    "editorLoading": "Cargando detalles...",
+    "editorLoadfailed": "Error al cargar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "deleteCheck": "¿Está seguro de que desea eliminar esta tarea?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "ProProgress": {
+    "saveSuccess": "Guardado con éxito",
+    "saveFailed": "Error al guardar"
+  },
+  "Settings": {
+    "Title": "Configuración",
+    "Language": "Idioma",
+    "Types": "Gestión de Tipos",
+    "AddType": "Agregar Tipo",
+    "Close": "Cerrar"
+  },
+  "Login": {
+    "userLogin": "Inicio de Sesión",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "pwVisToggle": "Mostrar/Ocultar contraseña",
+    "loading": "Iniciando sesión...",
+    "login": "Iniciar sesión"
+  }
+}
