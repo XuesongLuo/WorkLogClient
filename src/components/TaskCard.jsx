@@ -101,6 +101,14 @@ export default function TaskCard({ task, onClose }) {
         </Box>
 
         {/* 第二行：年份、保险公司、项目类型 */}
+        <Box sx={{ mb: 1 }}>
+          <Typography>
+            <strong>{t('viewPro.contractStatus', { defaultValue: 'Contract Status: ' })}</strong>
+            {task.contractStatus === 'signed'
+              ? t('common.contractSigned', { defaultValue: 'Signed' })
+              : t('common.contractUnsigned', { defaultValue: 'Unsigned' })}
+          </Typography>
+        </Box>
         <Grid container spacing={2} sx={{ mb: 1 }}>
           <Grid item xs={4}>
             <Typography>

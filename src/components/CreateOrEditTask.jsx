@@ -75,6 +75,7 @@ export default function CreateOrEditTask({ _id: propId, task: propTask, embedded
     company: '',
     manager: '',
     referrer: '',
+    contractStatus: 'unsigned',
     start: new Date(),
     end: new Date(),
   });
@@ -390,9 +391,24 @@ export default function CreateOrEditTask({ _id: propId, task: propTask, embedded
               onChange={handleChange} 
             />
           </Grid>
+          <Grid item sx={{ gridColumn: { xs: 'span 1', sm: 'span 6', md: 'span 4', lg: 'span 8' } }}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="contract-status-label">{t('EditPro.contractStatus', { defaultValue: 'Contract Status' })}</InputLabel>
+              <Select
+                labelId="contract-status-label"
+                name="contractStatus"
+                value={form.contractStatus || 'unsigned'}
+                onChange={handleChange}
+                label={t('EditPro.contractStatus', { defaultValue: 'Contract Status' })}
+              >
+                <MenuItem value="unsigned">{t('common.contractUnsigned', { defaultValue: 'Unsigned' })}</MenuItem>
+                <MenuItem value="signed">{t('common.contractSigned', { defaultValue: 'Signed' })}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
           
           {/* 第4行：开始日期、结束日期 */}
-          <Grid item sx={{ gridColumn: { xs: 'span 1', sm: 'span 6', md: 'span 4', lg: 'span 12' } }}>
+          <Grid item sx={{ gridColumn: { xs: 'span 1', sm: 'span 6', md: 'span 4', lg: 'span 8' } }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label={t('EditPro.startDate')} 
@@ -402,7 +418,7 @@ export default function CreateOrEditTask({ _id: propId, task: propTask, embedded
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item sx={{ gridColumn: { xs: 'span 1', sm: 'span 6', md: 'span 4', lg: 'span 12' } }}>
+          <Grid item sx={{ gridColumn: { xs: 'span 1', sm: 'span 6', md: 'span 4', lg: 'span 8' } }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label={t('EditPro.endDate')} 
