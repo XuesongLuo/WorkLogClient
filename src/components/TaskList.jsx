@@ -13,6 +13,27 @@ function formatDate(val) {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+function getContractColors(contractStatus, selected) {
+  if (selected) {
+    return {
+      rowBackground: '#cfe3ff',
+      separatorColor: '#9ec5fe',
+    };
+  }
+
+  if (contractStatus === 'signed') {
+    return {
+      rowBackground: '#eef8ee',
+      separatorColor: '#cfe4cf',
+    };
+  }
+
+  return {
+    rowBackground: '#fff0f0',
+    separatorColor: '#ebcccc',
+  };
+}
+
 const TaskList = React.forwardRef(function TaskList(
   { tasks, onSelectTask, sx = {}, loading, hasMore, onLoadMore, selectedTaskId },
   ref
@@ -123,7 +144,6 @@ const TaskList = React.forwardRef(function TaskList(
   const tdStyle = col => ({
     padding: '8px 4px',
     fontSize: 12,
-    borderBottom: '1px solid #f4f4f4',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -166,26 +186,35 @@ const TaskList = React.forwardRef(function TaskList(
         </thead>
         <tbody>
           {tasks.map((t, idx) => (
-            <tr
-              key={t._id || idx}
-              style={{
-                background:
-                  selectedTaskId === t._id
-                    ? '#cfe3ff'
-                    : idx % 2 === 1
-                    ? '#fafbfc'
-                    : '#fff',
-                transition: 'background 0.18s',
-                cursor: 'pointer',
-              }}
-              onClick={() => onSelectTask && onSelectTask(t)}
-            >
-              {dynamicCols.map(col => (
-                <td key={col.key} style={tdStyle(col)}>
-                  {col.render(t)}
-                </td>
-              ))}
-            </tr>
+            (() => {
+              const isSelected = selectedTaskId === t._id;
+              const contractColors = getContractColors(t.contractStatus, isSelected);
+              return (
+                <tr
+                  key={t._id || idx}
+                  style={{
+                    background: contractColors.rowBackground,
+                    transition: 'background 0.18s',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => onSelectTask && onSelectTask(t)}
+                >
+                  {dynamicCols.map(col => (
+                    <td
+                      key={col.key}
+                      style={{
+                        ...tdStyle(col),
+                        background: contractColors.rowBackground,
+                        borderBottom: `1px solid ${contractColors.separatorColor}`,
+                      }}
+                    >
+                      {col.render(t)}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })()
+            
           ))}
           {loading && (
             <tr>
