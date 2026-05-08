@@ -17,7 +17,12 @@
     "address": "Dirección",
     "year": "Año de la Casa",
     "insurance": "Compañía de Seguros",
-    "type": "Tipo de Proyecto"
+    "type": "Tipo de Proyecto",
+    "contractStatus": "Estado del Contrato"
+  },
+  "common": {
+    "contractSigned": "Firmado",
+    "contractUnsigned": "Sin firmar"
   },
   "calendar": {
     "today": "Hoy",
@@ -51,6 +56,7 @@
     "manager": "Responsable del Proyecto",
     "referrer": "Recomendado por",
     "company": "Empresa",
+    "contractStatus": "Estado del Contrato",
     "startDate": "Fecha de Inicio",
     "endDate": "Fecha de Finalización",
     "editorTitle": "Detalles del Proyecto",
@@ -76,6 +82,7 @@
     "manager": "Responsable del Proyecto: ",
     "referrer": "Recomendado por: ",
     "company": "Empresa: ",
+    "contractStatus": "Estado del Contrato: ",
     "startDate": "Fecha de Inicio: ",
     "endDate": "Fecha de Finalización: ",
     "notFilled": "No completado",

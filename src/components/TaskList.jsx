@@ -55,6 +55,16 @@ const TaskList = React.forwardRef(function TaskList(
         align: 'center',
         render: t => t.type,
       },
+      {
+        key: 'contractStatus',
+        header: t('ProList.contractStatus', { defaultValue: 'Contract Status' }),
+        baseWidth: 55,
+        align: 'center',
+        render: row =>
+          row.contractStatus === 'signed'
+            ? t('common.contractSigned', { defaultValue: 'Signed' })
+            : t('common.contractUnsigned', { defaultValue: 'Unsigned' }),
+      },
     ],
     [t]
   );

@@ -17,7 +17,12 @@
     "address": "Address",
     "year": "House Year",
     "insurance": "Insurance Company",
-    "type": "Project Type"
+    "type": "Project Type",
+    "contractStatus": "Contract Status"
+  },
+  "common": {
+    "contractSigned": "Signed",
+    "contractUnsigned": "Unsigned"
   },
   "calendar": {
     "today": "Today",
@@ -51,6 +56,7 @@
     "manager": "Project Manager",
     "referrer": "Project Referrer",
     "company": "Company",
+    "contractStatus": "Contract Status",
     "startDate": "Start Date",
     "endDate": "End Date",
     "editorTitle": "Project Details",
@@ -76,6 +82,7 @@
     "manager": "Project Manager: ",
     "referrer": "Project Referrer: ",
     "company": "Project Company: ",
+    "contractStatus": "Contract Status: ",
     "startDate": "Start Date: ",
     "endDate": "End Date: ",
     "notFilled": "Not filled in",

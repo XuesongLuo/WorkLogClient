@@ -260,7 +260,13 @@ export default function TaskDetail({ _id: propId, embedded = false, onClose }) {
             <Typography><strong>{t('viewPro.endDate')}</strong>{task.end ? new Date(task.end).toLocaleDateString() : t('viewPro.notFilled')}</Typography>
           </Grid>
         </Grid>
-          
+        <Typography sx={{ mt: 2 }}>
+          <strong>{t('viewPro.contractStatus', { defaultValue: 'Contract Status: ' })}</strong>
+          {task.contractStatus === 'signed'
+            ? t('common.contractSigned', { defaultValue: 'Signed' })
+            : t('common.contractUnsigned', { defaultValue: 'Unsigned' })}
+        </Typography>
+
         <Divider sx={{ my: 2 }} />
         <Typography gutterBottom>
         <strong>{t('viewPro.editorTitle')}</strong>
