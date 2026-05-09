@@ -5,7 +5,20 @@
     "calendarTitle": "项目 日历",
     "listTitle": "项目  列表",
     "createProject": "新建项目",
-    "progressTableEditor": "项目进度表"
+    "progressTableEditor": "项目进度表",
+    "filters": {
+      "show": "显示筛选",
+      "hide": "隐藏筛选",
+      "reset": "重置",
+      "all": "全部",
+      "none": "无启用的筛选条件",
+      "active": "已启用 {{count}} 个筛选条件",
+      "results": "已显示 {{shown}} / {{total}} 个项目",
+      "contract": "合同",
+      "type": "类型",
+      "startFrom": "开始于",
+      "startTo": "结束于"
+    }
   },
   "TopAppBar": {
     "settings": "设置",
