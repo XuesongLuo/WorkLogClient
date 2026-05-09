@@ -5,7 +5,20 @@
     "calendarTitle": "Calendario de Proyectos",
     "listTitle": "Lista de Proyectos",
     "createProject": "Crear Proyecto",
-    "progressTableEditor": "Editor de Tabla de Progreso"
+    "progressTableEditor": "Editor de Tabla de Progreso",
+    "filters": {
+      "show": "Mostrar Filtros",
+      "hide": "Ocultar Filtros",
+      "reset": "Restablecer",
+      "all": "Todos",
+      "none": "Sin filtros activos",
+      "active": "{{count}} filtros activos",
+      "results": "{{shown}} de {{total}} proyectos mostrados",
+      "contract": "Contrato",
+      "type": "Tipo",
+      "startFrom": "Desde",
+      "startTo": "Hasta"
+    }
   },
   "TopAppBar": {
     "settings": "Configuración",

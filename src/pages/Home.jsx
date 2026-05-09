@@ -7,6 +7,7 @@ import {
   Button,
   Chip,
   Collapse,
+  Fade,
   Stack,
   Grid,
   Container,
@@ -320,30 +321,92 @@ export default function Home() {
               <Box
                 sx={{
                   mb: 2,
-                  p: 2.25,
+                  p: 1.5,
                   border: '1px solid #dde5ee',
-                  borderRadius: 3,
+                  borderRadius: 2,
                   background: 'linear-gradient(180deg, #fbfcfd 0%, #f6f9fb 100%)',
-                  boxShadow: '0 10px 24px rgba(34, 55, 80, 0.04)',
+                  boxShadow: '0 6px 16px rgba(34, 55, 80, 0.035)',
                 }}
               >
                 <Stack
                   direction={{ xs: 'column', lg: 'row' }}
-                  spacing={2}
+                  spacing={1.25}
                   justifyContent="space-between"
                   alignItems={{ xs: 'stretch', lg: 'center' }}
-                  sx={{ mb: filtersOpen ? 2 : 0 }}
+                  sx={{
+                    mb: 1,
+                    minHeight: { xs: 'auto', lg: 36.5 },
+                  }}
                 >
-                  <Box>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#223750' }}>
-                      List Filters
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: '#60758a', mt: 0.5 }}>
-                      {filteredTasks.length} of {tasks.length} projects shown
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      minHeight: { xs: 'auto', lg: 36.5 },
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: '#60758a',
+                        fontSize: 12.5,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {t('Home.filters.results', {
+                        shown: filteredTasks.length,
+                        total: tasks.length,
+                        defaultValue: '{{shown}} of {{total}} projects shown',
+                      })}
                     </Typography>
                   </Box>
 
-                  <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                    flexWrap="wrap"
+                    useFlexGap
+                    justifyContent="flex-end"
+                    sx={{ minHeight: 36.5 }}
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        minWidth: { xs: 0, lg: 250 },
+                        justifyContent: 'flex-end',
+                      }}
+                    >
+                      <Fade in={filtersOpen} timeout={180} unmountOnExit>
+                        <Chip
+                          label={
+                            activeFilterCount
+                              ? t('Home.filters.active', {
+                                  count: activeFilterCount,
+                                  defaultValue: '{{count}} active filters',
+                                })
+                              : t('Home.filters.none', { defaultValue: 'No active filters' })
+                          }
+                          size="small"
+                          sx={{
+                            background: activeFilterCount ? '#e8f1fb' : '#eef3f7',
+                            color: activeFilterCount ? '#245b8f' : '#60758a',
+                            fontWeight: 600,
+                          }}
+                        />
+                      </Fade>
+
+                      <Fade in={filtersOpen} timeout={180} unmountOnExit>
+                        <Box>
+                          <Button variant="text" onClick={resetFilters} disabled={!activeFilterCount}>
+                            {t('Home.filters.reset', { defaultValue: 'Reset' })}
+                          </Button>
+                        </Box>
+                      </Fade>
+                    </Box>
+
                     <Button
                       variant={filtersOpen ? 'contained' : 'outlined'}
                       color="primary"
@@ -357,93 +420,101 @@ export default function Home() {
                         />
                       }
                       onClick={() => setFiltersOpen(prev => !prev)}
-                    >
-                      {filtersOpen ? 'Hide Filters' : 'Show Filters'}
-                    </Button>
-                    <Chip
-                      label={activeFilterCount ? `${activeFilterCount} active filters` : 'No active filters'}
                       size="small"
                       sx={{
-                        background: activeFilterCount ? '#e8f1fb' : '#eef3f7',
-                        color: activeFilterCount ? '#245b8f' : '#60758a',
-                        fontWeight: 600,
+                        height: 32,
+                        minHeight: 32,
+                        minWidth: 132,
+                        px: 1.25,
+                        py: 0.5,
+                        boxSizing: 'border-box',
+                        whiteSpace: 'nowrap',
                       }}
-                    />
-                    <Button variant="text" onClick={resetFilters} disabled={!activeFilterCount}>
-                      Reset
+                    >
+                      {filtersOpen
+                        ? t('Home.filters.hide', { defaultValue: 'Hide Filters' })
+                        : t('Home.filters.show', { defaultValue: 'Show Filters' })}
                     </Button>
                   </Stack>
                 </Stack>
 
-                <Collapse in={filtersOpen}>
+                <Collapse in={filtersOpen} timeout={220} unmountOnExit>
                   <Stack
                     direction={{ xs: 'column', md: 'row' }}
-                    spacing={2}
+                    spacing={1.25}
                     useFlexGap
                     flexWrap="wrap"
                     alignItems={{ xs: 'stretch', md: 'center' }}
                   >
-                    <FormControl size="small" sx={{ minWidth: 160 }}>
-                      <InputLabel id="contract-filter-label">Contract</InputLabel>
+                    <FormControl size="small" sx={{ minWidth: 145 }}>
+                      <InputLabel id="contract-filter-label">
+                        {t('Home.filters.contract', { defaultValue: 'Contract' })}
+                      </InputLabel>
                       <Select
                         labelId="contract-filter-label"
                         name="contractStatus"
                         value={filters.contractStatus}
-                        label="Contract"
+                        label={t('Home.filters.contract', { defaultValue: 'Contract' })}
                         onChange={handleFilterChange}
-                        sx={{ background: '#fff', borderRadius: 2 }}
+                        sx={{ background: '#fff', borderRadius: 1.5, fontSize: 13 }}
                       >
-                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="">{t('Home.filters.all', { defaultValue: 'All' })}</MenuItem>
                         <MenuItem value="signed">{t('common.contractSigned', { defaultValue: 'Signed' })}</MenuItem>
                         <MenuItem value="unsigned">{t('common.contractUnsigned', { defaultValue: 'Unsigned' })}</MenuItem>
                       </Select>
                     </FormControl>
 
-                    <FormControl size="small" sx={{ minWidth: 180 }}>
-                      <InputLabel id="type-filter-label">Type</InputLabel>
+                    <FormControl size="small" sx={{ minWidth: 160 }}>
+                      <InputLabel id="type-filter-label">
+                        {t('Home.filters.type', { defaultValue: 'Type' })}
+                      </InputLabel>
                       <Select
                         labelId="type-filter-label"
                         name="type"
                         value={filters.type}
-                        label="Type"
+                        label={t('Home.filters.type', { defaultValue: 'Type' })}
                         onChange={handleFilterChange}
-                        sx={{ background: '#fff', borderRadius: 2 }}
+                        sx={{ background: '#fff', borderRadius: 1.5, fontSize: 13 }}
                       >
-                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="">{t('Home.filters.all', { defaultValue: 'All' })}</MenuItem>
                         {filterOptions.types.map(option => (
                           <MenuItem key={option} value={option}>{option}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
 
-                    <FormControl size="small" sx={{ minWidth: 180 }}>
-                      <InputLabel id="city-filter-label">City</InputLabel>
+                    <FormControl size="small" sx={{ minWidth: 160 }}>
+                      <InputLabel id="city-filter-label">
+                        {t('EditPro.city', { defaultValue: 'City' })}
+                      </InputLabel>
                       <Select
                         labelId="city-filter-label"
                         name="city"
                         value={filters.city}
-                        label="City"
+                        label={t('EditPro.city', { defaultValue: 'City' })}
                         onChange={handleFilterChange}
-                        sx={{ background: '#fff', borderRadius: 2 }}
+                        sx={{ background: '#fff', borderRadius: 1.5, fontSize: 13 }}
                       >
-                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="">{t('Home.filters.all', { defaultValue: 'All' })}</MenuItem>
                         {filterOptions.cities.map(option => (
                           <MenuItem key={option} value={option}>{option}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
 
-                    <FormControl size="small" sx={{ minWidth: 140 }}>
-                      <InputLabel id="state-filter-label">State</InputLabel>
+                    <FormControl size="small" sx={{ minWidth: 125 }}>
+                      <InputLabel id="state-filter-label">
+                        {t('EditPro.state', { defaultValue: 'State' })}
+                      </InputLabel>
                       <Select
                         labelId="state-filter-label"
                         name="state"
                         value={filters.state}
-                        label="State"
+                        label={t('EditPro.state', { defaultValue: 'State' })}
                         onChange={handleFilterChange}
-                        sx={{ background: '#fff', borderRadius: 2 }}
+                        sx={{ background: '#fff', borderRadius: 1.5, fontSize: 13 }}
                       >
-                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value="">{t('Home.filters.all', { defaultValue: 'All' })}</MenuItem>
                         {filterOptions.states.map(option => (
                           <MenuItem key={option} value={option}>{option}</MenuItem>
                         ))}
@@ -452,17 +523,17 @@ export default function Home() {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={dateLocale}>
                       <DatePicker
-                        label="Start From"
+                        label={t('Home.filters.startFrom', { defaultValue: 'Start From' })}
                         value={filters.startDateFrom}
                         onChange={(value) => handleDateFilterChange('startDateFrom', value)}
                         slotProps={{
                           textField: {
                             size: 'small',
                             sx: {
-                              minWidth: 168,
+                              minWidth: 152,
                               '& .MuiOutlinedInput-root': {
                                 background: '#fff',
-                                borderRadius: 2,
+                                borderRadius: 1.5,
                               },
                             },
                           },
@@ -472,17 +543,17 @@ export default function Home() {
 
                     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={dateLocale}>
                       <DatePicker
-                        label="Start To"
+                        label={t('Home.filters.startTo', { defaultValue: 'Start To' })}
                         value={filters.startDateTo}
                         onChange={(value) => handleDateFilterChange('startDateTo', value)}
                         slotProps={{
                           textField: {
                             size: 'small',
                             sx: {
-                              minWidth: 168,
+                              minWidth: 152,
                               '& .MuiOutlinedInput-root': {
                                 background: '#fff',
-                                borderRadius: 2,
+                                borderRadius: 1.5,
                               },
                             },
                           },
